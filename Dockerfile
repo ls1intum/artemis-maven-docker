@@ -2,11 +2,11 @@ FROM maven:3.6.3-jdk-14
 
 MAINTAINER Stephan Krusche <krusche@in.tum.de>
 
-RUN mkdir /opt/template
+ADD artemis-java-template /opt/artemis-java-template
 
-ADD pom.xml /opt/template/pom.xml
+RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test
 
-RUN cd /opt/template && pwd && ls -la && mvn clean install test
+RUN rm -rf /opt/artemis-java-template
 
 ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
 
