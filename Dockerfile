@@ -6,7 +6,7 @@ RUN mkdir /opt/template
 
 ADD pom.xml /opt/template/pom.xml
 
-RUN cd /opt/template && pwd && ls -la && mvn install
+RUN cd /opt/template && pwd && ls -la && mvn clean install test
 
 ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
 
