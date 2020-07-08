@@ -185,7 +185,7 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<!-- mvn clean compile assembly:single -->
-				<version>3.2.0</version>
+				<version>3.3.0</version>
 				<configuration>
 					<archive>
 						<manifest>
