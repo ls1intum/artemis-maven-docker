@@ -4,11 +4,11 @@
     <groupId>de.tum.in.ase</groupId>
     <artifactId>Artemis-Java-Template</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>Artemis Java Template</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<javafx.version>14.0.2.1</javafx.version>
+		<javafx.version>15</javafx.version>
 		<powermock2.version>2.0.7</powermock2.version>
 		<powermock1.version>1.7.4</powermock1.version>
 	</properties>
