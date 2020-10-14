@@ -4,70 +4,72 @@
     <groupId>de.tum.in.ase</groupId>
     <artifactId>Artemis-Java-Template</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>Artemis Java Template</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javafx.version>15</javafx.version>
+		<powermock2.version>2.0.7</powermock2.version>
+		<powermock1.version>1.7.4</powermock1.version>
 	</properties>
-	<repositories>
-		<repository>
-			<id>ajts</id>
-			<name>AJTS Maven Packages</name>
-			<url>https://gitlab.com/ajts-mvn/repo/raw/master/</url>
-		</repository>
-	</repositories>	
     <dependencies>
 		<dependency>
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.6.2</version>
+			<version>5.7.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.tum.in</groupId>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-testkit</artifactId>
+			<version>1.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.tum.in.ase</groupId>
 			<artifactId>artemis-java-test-sandbox</artifactId>
-			<version>0.5.2</version>
+			<version>1.1.1</version>
 			<scope>test</scope>
 		</dependency>		    
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13</version>
+            <version>4.13.1</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20190722</version>
+            <version>20200518</version>
         </dependency>
         <dependency>
             <groupId>me.xdrop</groupId>
             <artifactId>fuzzywuzzy</artifactId>
-            <version>1.2.0</version>
+            <version>1.3.1</version>
         </dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>14.0.1</version>
+			<version>${javafx.version}</version>
 		</dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>14.0.1</version>
+            <version>${javafx.version}</version>
         </dependency>		
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-media</artifactId>
-			<version>14.0.1</version>
+			<version>${javafx.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-swing</artifactId>
-			<version>14.0.1</version>
+			<version>${javafx.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.10.3</version>
+			<version>2.11.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsonschema2pojo</groupId>
@@ -77,7 +79,7 @@
 		<dependency>
 			<groupId>org.eclipse.jgit</groupId>
 			<artifactId>org.eclipse.jgit</artifactId>
-			<version>5.8.0.202006091008-r</version>
+			<version>5.9.0.202009080501-r</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -88,21 +90,42 @@
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
 			<version>4.2</version>
-		</dependency>			
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>1.10.19</version>
 		</dependency>
 		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.28.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>1.7.0</version>
+			<version>${powermock2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>${powermock2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock1.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.7.0</version>			
+			<version>${powermock1.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik</artifactId>
+			<version>1.3.6</version>
+			<scope>test</scope>
 		</dependency>
     </dependencies>
     <build>
@@ -119,20 +142,20 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>14</source>
-                    <target>14</target>
+                    <source>15</source>
+                    <target>15</target>
                 </configuration>
 				<executions>
 					<execution>
 						<!-- Better error messages by using Eclipse JDT Compiler -->
-						<id>default-testCompile</id>
-						<phase>test-compile</phase>
+						<id>test-compile</id>
+						<phase>process-test-sources</phase>
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
-							<source>13</source>
-							<target>13</target>
+							<source>14</source>
+							<target>14</target>
 							<compilerId>jdt</compilerId>
 							<optimize>true</optimize>
 							<failOnError>false</failOnError>
@@ -146,7 +169,7 @@
 					<dependency>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>tycho-compiler-jdt</artifactId>
-						<version>1.7.0</version>
+						<version>2.0.0</version>
 					</dependency>
 				</dependencies>                
             </plugin>
@@ -196,7 +219,45 @@
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 				</configuration>
-			</plugin>            
+			</plugin>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>4.1.3</version>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+					<includeTests>false</includeTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>8.36.2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.13.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-core</artifactId>
+						<version>6.28.0</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-java</artifactId>
+						<version>6.28.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
         </plugins>
     </build>
 </project>
