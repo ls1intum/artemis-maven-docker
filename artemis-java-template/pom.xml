@@ -9,6 +9,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javafx.version>14.0.2.1</javafx.version>
+		<powermock2.version>2.0.7</powermock2.version>
+		<powermock1.version>1.7.4</powermock1.version>
 	</properties>
     <dependencies>
 		<dependency>
@@ -89,7 +91,11 @@
 			<artifactId>easymock</artifactId>
 			<version>4.2</version>
 		</dependency>
-		<!-- TODO: Use both the old and the new version? -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -98,18 +104,22 @@
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
-			<version>2.0.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.7.4</version>
+			<version>${powermock2.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito2</artifactId>
-			<version>2.0.7</version>
-			<scope>test</scope>
+			<version>${powermock2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock1.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock1.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.jqwik</groupId>
