@@ -4,129 +4,25 @@
     <groupId>de.tum.in.ase</groupId>
     <artifactId>Artemis-Java-Template</artifactId>
     <packaging>jar</packaging>
-    <version>1.1</version>
+    <version>1.2</version>
     <name>Artemis Java Template</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<javafx.version>15</javafx.version>
-		<powermock2.version>2.0.7</powermock2.version>
-		<powermock1.version>1.7.4</powermock1.version>
+        <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
+        <analyzeTests>false</analyzeTests>
 	</properties>
     <dependencies>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.7.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-testkit</artifactId>
-			<version>1.7.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.tum.in.ase</groupId>
-			<artifactId>artemis-java-test-sandbox</artifactId>
-			<version>1.1.1</version>
-			<scope>test</scope>
-		</dependency>		    
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <!-- Comes with JUnit 5, AssertJ and Hamcrest. JUnit 4 (JUnit 5 Vintage) or jqwik need to be added explicitly -->
+            <groupId>de.tum.in.ase</groupId>
+            <artifactId>artemis-java-test-sandbox</artifactId>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20200518</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
         </dependency>
-        <dependency>
-            <groupId>me.xdrop</groupId>
-            <artifactId>fuzzywuzzy</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>		
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-media</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-swing</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.11.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jsonschema2pojo</groupId>
-			<artifactId>jsonschema2pojo-core</artifactId>
-			<version>1.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jgit</groupId>
-			<artifactId>org.eclipse.jgit</artifactId>
-			<version>5.9.0.202009080501-r</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>		
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>1.10.19</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>2.28.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito2</artifactId>
-			<version>${powermock2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock1.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>${powermock1.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>net.jqwik</groupId>
-			<artifactId>jqwik</artifactId>
-			<version>1.3.6</version>
-			<scope>test</scope>
-		</dependency>
     </dependencies>
     <build>
         <sourceDirectory>${project.basedir}/assignment/src</sourceDirectory>
@@ -145,119 +41,92 @@
                     <source>15</source>
                     <target>15</target>
                 </configuration>
-				<executions>
-					<execution>
-						<!-- Better error messages by using Eclipse JDT Compiler -->
-						<id>test-compile</id>
-						<phase>process-test-sources</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-						<configuration>
-							<source>14</source>
-							<target>14</target>
-							<compilerId>jdt</compilerId>
-							<optimize>true</optimize>
-							<failOnError>false</failOnError>
-							<compilerArguments>
-								<proceedOnError />
-							</compilerArguments>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>tycho-compiler-jdt</artifactId>
-						<version>2.0.0</version>
-					</dependency>
-				</dependencies>                
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.1.3</version>
+                <configuration>
+                    <!-- Do not analyze the files in the test directory -->
+                    <includeTests>${analyzeTests}</includeTests>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Do not report bugs matching the rules defined in this file -->
+                    <excludeFilterFile>${scaConfigDirectory}/spotbugs-exclusions.xml</excludeFilterFile>
+                    <!-- Only include bugs matching the rules defined in this file -->
+                    <includeFilterFile/>
+                    <!-- Analysis with high effort are more precise and can potentially find more bugs at the cost of
+                    memory consumption and computation time. See https://spotbugs.readthedocs.io/en/stable/effort.html
+                    for more information -->
+                    <effort>Default</effort>
+                    <!-- Minimum bug severity to report. Low reports all bugs -->
+                    <threshold>Low</threshold>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.36.2</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <!-- Do not analyze the files in the test directory -->
+                    <includeTestSourceDirectory>${analyzeTests}</includeTestSourceDirectory>
+                    <!-- Use the Artemis default configuration. Two other predefined rulesets are available:
+                     Add sun_checks.xml to check for the official Oracle code conventions or add google_checks.xml to
+                     check for the Google's Java Style Guide -->
+                    <configLocation>${scaConfigDirectory}/checkstyle-configuration.xml</configLocation>
+                    <!-- No documentation and not needed -->
+                    <enableRSS>false</enableRSS>
+                </configuration>
             </plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target</outputDirectory>
-							<resources>
-								<resource>  
-									<directory>resources</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<!-- mvn clean compile assembly:single -->
-				<version>3.3.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>de.tum.in.ase.eist.Bumpers</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.github.spotbugs</groupId>
-				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>4.1.3</version>
-				<configuration>
-					<xmlOutput>true</xmlOutput>
-					<includeTests>false</includeTests>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.1.1</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>8.36.2</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.13.0</version>
-				<dependencies>
-					<dependency>
-						<groupId>net.sourceforge.pmd</groupId>
-						<artifactId>pmd-core</artifactId>
-						<version>6.28.0</version>
-					</dependency>
-					<dependency>
-						<groupId>net.sourceforge.pmd</groupId>
-						<artifactId>pmd-java</artifactId>
-						<version>6.28.0</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.13.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-core</artifactId>
+                        <version>6.28.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-java</artifactId>
+                        <version>6.28.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <!-- Do not analyze the files in the test directory -->
+                    <includeTests>${analyzeTests}</includeTests>
+                    <!-- Bugs reported have at least this priority. 1 is the highest and 5 is the lowest priority -->
+                    <minimumPriority>5</minimumPriority>
+                    <!-- Add multiple rulesets for fine-grained control of file exclusions per rule -->
+                    <rulesets>
+                        <ruleset>${scaConfigDirectory}/pmd-configuration.xml</ruleset>
+                    </rulesets>
+                    <!-- Minimum amount of duplicated tokens triggering the copy-paste detection -->
+                    <minimumTokens>60</minimumTokens>
+                    <!-- Ignore literal value differences when evaluating a duplicate block.
+                    If true, foo=42; and foo=43; will be seen as equivalent -->
+                    <ignoreLiterals>true</ignoreLiterals>
+                    <!-- Similar to ignoreLiterals but for identifiers, i.e. variable names, methods names.
+                    If activated, most tokens will be ignored so minimumTokens must be lowered significantly -->
+                    <ignoreIdentifiers>false</ignoreIdentifiers>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
