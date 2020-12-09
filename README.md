@@ -1,4 +1,7 @@
 # artemis-maven-docker
+
+This also includes git and replaces https://github.com/ls1intum/artemis-maven-git-docker.
+
 Docker Container for Docker Hub
 
 	docker build --no-cache -t artemis-maven-docker .
