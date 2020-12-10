@@ -166,8 +166,8 @@
                             <goal>testCompile</goal>
                         </goals>
                         <configuration>
-                            <source>15</source>
-                            <target>15</target>
+                            <source>14</source>
+                            <target>14</target>
                             <compilerId>jdt</compilerId>
                             <optimize>true</optimize>
                             <failOnError>false</failOnError>

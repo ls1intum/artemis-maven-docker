@@ -2,6 +2,8 @@ FROM maven:3.6.3-openjdk-15
 
 MAINTAINER Stephan Krusche <krusche@in.tum.de>
 
+ENV gitversion=2.29.2
+
 #install git
 RUN microdnf install wget 
 RUN microdnf install make 
@@ -13,7 +15,7 @@ RUN microdnf install zlib-devel
 RUN microdnf install gcc
 RUN microdnf install perl-ExtUtils-MakeMaker
 
-RUN cd /usr/src && wget https://www.kernel.org/pub/software/scm/git/git-2.29.0.tar.gz && tar xzf git-2.29.0.tar.gz && cd git-2.29.0 && make prefix=/usr/local all && make prefix=/usr/local install && git --version && rm -rf /usr/src/git-2.29.0.tar.gz && rm -rf /usr/src/git-2.29.0
+RUN cd /usr/src && wget https://www.kernel.org/pub/software/scm/git/git-${gitversion}.tar.gz && tar xzf git-${gitversion}.tar.gz && cd git-${gitversion} && make prefix=/usr/local all && make prefix=/usr/local install && git --version && rm -rf /usr/src/git-${gitversion}.tar.gz && rm -rf /usr/src/git-${gitversion}
 
 ADD artemis-java-template /opt/artemis-java-template
 
