@@ -1,21 +1,32 @@
-FROM maven:3.6.3-openjdk-15
+FROM ubuntu:20.10
 
 MAINTAINER Stephan Krusche <krusche@in.tum.de>
 
-ENV gitversion=2.29.2
+RUN apt-get update && apt-get install -y locales
 
-#install git
-RUN microdnf install wget 
-RUN microdnf install make 
-RUN microdnf install curl-devel 
-RUN microdnf install expat-devel 
-RUN microdnf install gettext-devel 
-RUN microdnf install openssl-devel 
-RUN microdnf install zlib-devel
-RUN microdnf install gcc
-RUN microdnf install perl-ExtUtils-MakeMaker
+# Set the locale
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
-RUN cd /usr/src && wget https://www.kernel.org/pub/software/scm/git/git-${gitversion}.tar.gz && tar xzf git-${gitversion}.tar.gz && cd git-${gitversion} && make prefix=/usr/local all && make prefix=/usr/local install && git --version && rm -rf /usr/src/git-${gitversion}.tar.gz && rm -rf /usr/src/git-${gitversion}
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    git \
+    maven \
+ && rm -rf /var/lib/apt/lists/*
+ 
+RUN mkdir -p /opt/openjdk \
+ && cd /opt/openjdk \
+ && curl -L https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.1%2B9/OpenJDK15U-jdk_x64_linux_hotspot_15.0.1_9.tar.gz | tar zx --strip-components=1 \
+ && test -f /opt/openjdk/bin/java \
+ && test -f /opt/openjdk/bin/javac
+
+ENV JAVA_HOME /opt/openjdk
+ENV PATH $JAVA_HOME/bin:$PATH
+ENV M2_HOME /usr/share/maven
+
 
 ADD artemis-java-template /opt/artemis-java-template
 
@@ -23,6 +34,5 @@ RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test && 
 
 RUN rm -rf /opt/artemis-java-template
 
-ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
 
 CMD ["mvn"]
