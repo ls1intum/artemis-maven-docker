@@ -19,7 +19,7 @@
         <dependency>
             <groupId>de.tum.in.ase</groupId>
             <artifactId>artemis-java-test-sandbox</artifactId>
-            <version>1.4.4</version>
+            <version>1.4.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
