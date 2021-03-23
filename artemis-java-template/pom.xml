@@ -4,14 +4,14 @@
     <groupId>de.tum.in.ase</groupId>
     <artifactId>Artemis-Java-Template</artifactId>
     <packaging>jar</packaging>
-    <version>1.2</version>
+    <version>1.3</version>
     <name>Artemis Java Template</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>15.0.1</javafx.version>
+        <javafx.version>16</javafx.version>
         <powermock2.version>2.0.9</powermock2.version>
         <powermock1.version>1.7.4</powermock1.version>
-        <mockito3.version>3.6.28</mockito3.version>
+        <mockito3.version>3.8.0</mockito3.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20200518</version>
+            <version>20210307</version>
         </dependency>       
         <dependency>
             <groupId>me.xdrop</groupId>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.12.0</version>
+            <version>2.12.2</version>
         </dependency>
         <dependency>
             <groupId>org.jsonschema2pojo</groupId>
@@ -86,7 +86,7 @@
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.9.0.202009080501-r</version>
+            <version>5.11.0.202103091610-r</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -96,17 +96,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.4.0</version>
+            <version>2.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.4.0</version>
+            <version>2.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
-            <version>2.4.0</version>
+            <version>2.4.4</version>
         </dependency>
         <dependency>
             <groupId>com.konghq</groupId>
@@ -136,7 +136,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.6.0</version>
+            <version>${mockito3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -214,8 +214,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>15</source>
-                    <target>15</target>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
                 <executions>
                     <execution>
