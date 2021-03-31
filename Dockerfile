@@ -27,6 +27,13 @@ ENV JAVA_HOME /opt/openjdk
 ENV PATH $JAVA_HOME/bin:$PATH
 ENV M2_HOME /usr/share/maven
 
+# workaround for an issue with maven 3.6.3 and JDK 16, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=980467
+# we can delete the following 4 lines as soon as the next maven release will be available
+RUN cd /usr/share/java \
+ && curl -o guice-4.2.3-no_aop.jar https://repo1.maven.org/maven2/com/google/inject/guice/4.2.3/guice-4.2.3-no_aop.jar \
+ && cd /usr/share/maven/lib \
+ && ln -sfn ../../java/guice-4.2.3-no_aop.jar guice.jar
+
 ADD artemis-java-template /opt/artemis-java-template
 
 RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test && mvn spotbugs:spotbugs checkstyle:checkstyle pmd:pmd
