@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:20.10
 
 MAINTAINER Stephan Krusche <krusche@in.tum.de>
 
