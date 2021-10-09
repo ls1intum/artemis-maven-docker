@@ -19,7 +19,7 @@
         <dependency>
             <groupId>de.tum.in.ase</groupId>
             <artifactId>artemis-java-test-sandbox</artifactId>
-            <version>1.5.5</version>
+            <version>1.7.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -29,13 +29,13 @@
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.7.2</version>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-testkit</artifactId>
-            <version>1.7.2</version>
+            <version>1.8.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
