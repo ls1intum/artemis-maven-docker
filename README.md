@@ -15,3 +15,20 @@ Docker Container for Docker Hub
 	mvn -version
 	
 	git --version
+	
+	
+### Publish to Dockerhub
+
+	docker build --no-cache -t ls1tum/artemis-maven-docker:<tagname> .
+
+	docker push ls1tum/artemis-maven-docker:<tagname>
+	
+	
+	
+#### Example
+
+	docker build --no-cache -t ls1tum/artemis-maven-docker:java16-5 .
+	
+	docker push ls1tum/artemis-maven-docker:java16-5
+
+	
