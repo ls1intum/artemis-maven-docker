@@ -13,7 +13,7 @@
         <powermock1.version>1.7.4</powermock1.version>
         <mockito3.version>3.12.4</mockito3.version>
         <mockito4.version>4.0.0</mockito4.version>
-        <springboot.version>2.5.6</springboot.version>
+        <springboot.version>2.6.1</springboot.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
+            <version>3.12.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.vintage</groupId>
