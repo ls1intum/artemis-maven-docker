@@ -13,7 +13,7 @@
         <powermock1.version>1.7.4</powermock1.version>
         <mockito3.version>3.12.4</mockito3.version>
         <mockito4.version>4.0.0</mockito4.version>
-        <springboot.version>2.6.0</springboot.version>
+        <springboot.version>2.6.1</springboot.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.8.1</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.13.0.202109080827-r</version>
+            <version>6.0.0.202111291000-r</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -230,7 +230,7 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.12.1</version>
+            <version>1.12.3</version>
         </dependency>
     </dependencies>
     <build>
@@ -383,7 +383,7 @@
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-java</artifactId>
-                        <version>6.40.0</version>
+                        <version>6.41.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
