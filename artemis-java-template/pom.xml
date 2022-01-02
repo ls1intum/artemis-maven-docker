@@ -78,7 +78,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
+            <version>2.13.1</version>
         </dependency>
         <dependency>
             <groupId>org.jsonschema2pojo</groupId>
@@ -230,7 +230,7 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.12.5</version>
+            <version>1.12.6</version>
         </dependency>
     </dependencies>
     <build>
@@ -331,7 +331,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.5.0.0</version>
+                <version>4.5.2.0</version>
                 <configuration>
                     <!-- Do not analyze the files in the test directory -->
                     <includeTests>${analyzeTests}</includeTests>
