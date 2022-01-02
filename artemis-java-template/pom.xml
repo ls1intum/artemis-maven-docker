@@ -230,7 +230,7 @@
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.12.5</version>
+            <version>1.12.6</version>
         </dependency>
     </dependencies>
     <build>
@@ -331,7 +331,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.5.0.0</version>
+                <version>4.5.2.0</version>
                 <configuration>
                     <!-- Do not analyze the files in the test directory -->
                     <includeTests>${analyzeTests}</includeTests>
@@ -356,7 +356,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>9.2</version>
+                        <version>9.2.1</version>
                     </dependency>
                 </dependencies>
                 <configuration>
