@@ -4,7 +4,7 @@
     <groupId>de.tum.in.ase</groupId>
     <artifactId>Artemis-Java-Template</artifactId>
     <packaging>jar</packaging>
-    <version>1.4</version>
+    <version>1.5</version>
     <name>Artemis Java Template</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -178,7 +178,7 @@
         <dependency>
             <groupId>org.jasypt</groupId>
             <artifactId>jasypt</artifactId>
-            <version>1.9.3</version>
+            <version>1.10.0</version>
         </dependency>             
         <dependency>
             <groupId>com.jgoodies</groupId>
@@ -218,19 +218,18 @@
         <dependency>
             <groupId>net.jqwik</groupId>
             <artifactId>jqwik</artifactId>
-            <!-- TODO: update to 1.5.6 as soon as Ares updated its dependency -->
-            <version>1.6.2</version>
+            <version>1.6.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.12.6</version>
+            <version>1.12.7</version>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.12.6</version>
+            <version>1.12.7</version>
         </dependency>
     </dependencies>
     <build>
@@ -245,7 +244,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.9.0</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>
