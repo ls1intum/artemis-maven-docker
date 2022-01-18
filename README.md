@@ -27,8 +27,8 @@ Docker Container for Docker Hub
 	
 #### Example
 
-	docker build --no-cache -t ls1tum/artemis-maven-template:java16-5 .
+	docker build --no-cache -t ls1tum/artemis-maven-template:java17-3 .
 	
-	docker push ls1tum/artemis-maven-template:java16-5
+	docker push ls1tum/artemis-maven-template:java17-3
 
 	
