@@ -11,7 +11,7 @@
         <javafx.version>17.0.1</javafx.version>
         <powermock2.version>2.0.9</powermock2.version>
         <powermock1.version>1.7.4</powermock1.version>
-        <mockito3.version>3.12.4</mockito3.version>
+        <mockito3.version>4.3.1</mockito3.version>
         <mockito4.version>4.0.0</mockito4.version>
         <springboot.version>2.6.2</springboot.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
@@ -123,17 +123,17 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.10.19</version>
+            <version>4.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.28.2</version>
+            <version>4.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.3.3</version>
+            <version>4.3.1</version>
         </dependency>        
         <dependency>
             <groupId>org.mockito</groupId>
