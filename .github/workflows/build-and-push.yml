@@ -30,6 +30,8 @@ jobs:
             return "FALSE";
 
       - uses: actions/checkout@v2
+
+      -
         name: Docker Login
         id: docker-login
         env:
