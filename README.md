@@ -16,7 +16,7 @@ Docker Container for Docker Hub
 	
 	git --version
 
-    gradle --version
+	gradle --version
 	
 	
 ### Publish to Dockerhub
