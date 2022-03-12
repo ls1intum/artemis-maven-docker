@@ -4,8 +4,12 @@ MAINTAINER Stephan Krusche <krusche@in.tum.de>
 
 RUN apt-get update && apt-get install -y \
     gnupg \
+    software-properties-common \
+ && add-apt-repository ppa:cwchien/gradle \
+ && apt-get update \
+ && apt-get install gradle=7.3* -y --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
- 
+
 ENV M2_HOME /usr/share/maven
 
 RUN echo "$LANG -- $LANGUAGE -- $LC_ALL" \
@@ -14,7 +18,8 @@ RUN echo "$LANG -- $LANGUAGE -- $LC_ALL" \
     && git --version \
     && mvn --version \
     && java --version \
-    && javac --version
+    && javac --version \
+    && gradle --version
     
 
 ADD artemis-java-template /opt/artemis-java-template
