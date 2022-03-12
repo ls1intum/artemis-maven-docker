@@ -62,18 +62,18 @@ jobs:
       # Push to GitHub Container Registry
       -
         name: Login to GitHub Container Registry
-          uses: docker/login-action@v1
-          with:
-            registry: ghcr.io
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-          if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
 
       -
         name: Push to GitHub Container Registry
-          env:
-            TAG: ${{ steps.compute-tag.outputs.result }}
-          run: |
-            docker tag artemis-maven-template ghcr.io/ls1intum/artemis-maven-template:$TAG
-            docker push ghcr.io/ls1intum/artemis-maven-template:$TAG
-          if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
+        env:
+          TAG: ${{ steps.compute-tag.outputs.result }}
+        run: |
+          docker tag artemis-maven-template ghcr.io/ls1intum/artemis-maven-template:$TAG
+          docker push ghcr.io/ls1intum/artemis-maven-template:$TAG
+        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
