@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Compute Tag
-          uses: actions/github-script@v6
-          id: compute-tag
-          with:
-            result-encoding: string
-            script: |
-              if (context.eventName === "pull_request") {
-                return "pr-" + context.issue.number;
+        uses: actions/github-script@v6
+        id: compute-tag
+        with:
+          result-encoding: string
+          script: |
+            if (context.eventName === "pull_request") {
+              return "pr-" + context.issue.number;
+            }
+            if (context.eventName === "push") {
+              if (context.ref.startsWith("refs/tags/")) {
+                return context.ref.slice(10);
               }
-              if (context.eventName === "push") {
-                if (context.ref.startsWith("refs/tags/")) {
-                  return context.ref.slice(10);
-                }
-                if (context.ref === "refs/heads/develop") {
-                  return "latest";
-                }
+              if (context.ref === "refs/heads/develop") {
+                return "latest";
               }
-              return "FALSE";
+            }
+            return "FALSE";
 
       - uses: actions/checkout@v2
         name: Docker Login
