@@ -70,10 +70,10 @@ jobs:
         env:
           TAG: ${{ steps.compute-tag.outputs.result }}
         run: |
-          docker buildx build --push \
+          docker buildx build -t --push \
             --tag ls1tum/artemis-maven-template:$TAG \
             --platform linux/amd64,linux/arm64/v8 .
-          docker image ls -a
+          docker images
           docker tag ls1tum/artemis-maven-template:$TAG ghcr.io/ls1intum/artemis-maven-template:$TAG
           docker push ghcr.io/ls1intum/artemis-maven-template:$TAG
         if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
