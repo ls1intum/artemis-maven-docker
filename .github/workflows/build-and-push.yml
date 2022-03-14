@@ -42,6 +42,16 @@ jobs:
         id: docker-login
         run: |
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
+
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -56,30 +66,13 @@ jobs:
           version: latest
 
       -
-        name: Build the Image
+        name: Build Image and Push to GitHub Container Registry and DockerHub
         env:
           TAG: ${{ steps.compute-tag.outputs.result }}
         run: |
           docker buildx build --push \
-          --tag ls1tum/artemis-maven-template:$TAG \
-          --platform linux/amd64,linux/arm64/v8 .
-        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
-
-      # Push to GitHub Container Registry
-      -
-        name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
-
-      -
-        name: Push to GitHub Container Registry
-        env:
-          TAG: ${{ steps.compute-tag.outputs.result }}
-        run: |
+            --tag ls1tum/artemis-maven-template:$TAG \
+            --platform linux/amd64,linux/arm64/v8 .
           docker image ls -a
           docker tag ls1tum/artemis-maven-template:$TAG ghcr.io/ls1intum/artemis-maven-template:$TAG
           docker push ghcr.io/ls1intum/artemis-maven-template:$TAG
