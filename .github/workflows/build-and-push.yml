@@ -67,13 +67,11 @@ jobs:
 
       -
         name: Build Image and Push to GitHub Container Registry and DockerHub
-        env:
-          TAG: ${{ steps.compute-tag.outputs.result }}
         uses: docker/build-push-action@v2
         with:
           context: .
           tags: |
-            ls1tum/artemis-maven-docker:$TAG
-            ghcr.io/ls1intum/artemis-maven-docker:$TAG
+            ls1tum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
+            ghcr.io/ls1intum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
           platforms: linux/amd64,linux/arm64/v8
           push: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
