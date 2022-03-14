@@ -61,7 +61,7 @@ jobs:
           TAG: ${{ steps.compute-tag.outputs.result }}
         run: |
           docker buildx build --push \
-          --tag ${{secrets.DOCKER_USERNAME}}/artemis-maven-template:$TAG \
+          --tag ls1tum/artemis-maven-template:$TAG \
           --platform linux/amd64,linux/arm64/v8 .
         if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
 
