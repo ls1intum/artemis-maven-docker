@@ -75,6 +75,6 @@ jobs:
             ghcr.io/ls1intum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
           platforms: linux/amd64,linux/arm64/v8
           push: |
-            ${{ steps.compute-tag.outputs.result.startsWith('pr-') != true
+            ${{ !startsWith(steps.compute-tag.outputs.result, 'pr-')
             && steps.compute-tag.outputs.result != 'latest'
             && steps.compute-tag.outputs.result != 'FALSE' }}
