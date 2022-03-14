@@ -80,6 +80,6 @@ jobs:
         env:
           TAG: ${{ steps.compute-tag.outputs.result }}
         run: |
-          docker tag ls1tum/artemis-maven-template ghcr.io/ls1intum/artemis-maven-template:$TAG
+          docker tag ls1tum/artemis-maven-template:$TAG ghcr.io/ls1intum/artemis-maven-template:$TAG
           docker push ghcr.io/ls1intum/artemis-maven-template:$TAG
         if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
