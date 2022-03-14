@@ -40,7 +40,7 @@ jobs:
               return "pr-" + context.issue.number;
             }
             if (context.eventName === "push") {
-              if (steps.check-if-release.result == "TRUE") {
+              if (steps.check-if-release.result == 'TRUE') {
                 return context.ref.slice(10);
               }
               if (context.ref === "refs/heads/main") {
@@ -88,4 +88,4 @@ jobs:
             ls1tum/artemis-maven-template:${{ steps.compute-tag.outputs.result }}
             ghcr.io/ls1intum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
           platforms: linux/amd64,linux/arm64/v8
-          push: ${{ steps.check-if-release.result == "FALSE" }}
+          push: ${{ steps.check-if-release.result == 'FALSE' }}
