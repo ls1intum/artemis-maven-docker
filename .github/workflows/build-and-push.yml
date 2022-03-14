@@ -44,6 +44,15 @@ jobs:
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
       -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
+
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -62,6 +71,7 @@ jobs:
         with:
           context: .
           tags: |
-            ls1tum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
+            ls1tum/artemis-maven-template:${{ steps.compute-tag.outputs.result }}
+            ghcr.io/ls1intum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
           platforms: linux/amd64,linux/arm64/v8
           push: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
