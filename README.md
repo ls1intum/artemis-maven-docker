@@ -15,8 +15,6 @@ Docker Container for Docker Hub
 	mvn -version
 	
 	git --version
-
-	gradle --version
 	
 	
 ### Publish to Dockerhub
