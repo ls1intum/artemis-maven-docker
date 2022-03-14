@@ -16,21 +16,7 @@ jobs:
     name: Build and Push the Docker Images
     runs-on: ubuntu-latest
     steps:
-      - name: Check if Release Version
-        uses: actions/github-script@v6
-        id: check-if-release
-        with:
-          result-encoding: string
-          script: |
-            if (context.eventName === "push") {
-              if (context.ref.startsWith("refs/tags/")) {
-                return "TRUE";
-              }
-            }
-            return "FALSE";
-
-      -
-        name: Compute Tag
+      - name: Compute Tag
         uses: actions/github-script@v6
         id: compute-tag
         with:
@@ -40,7 +26,7 @@ jobs:
               return "pr-" + context.issue.number;
             }
             if (context.eventName === "push") {
-              if (steps.check-if-release.result == 'TRUE') {
+              if (context.ref.startsWith("refs/tags/")) {
                 return context.ref.slice(10);
               }
               if (context.ref === "refs/heads/main") {
@@ -88,4 +74,7 @@ jobs:
             ls1tum/artemis-maven-template:${{ steps.compute-tag.outputs.result }}
             ghcr.io/ls1intum/artemis-maven-docker:${{ steps.compute-tag.outputs.result }}
           platforms: linux/amd64,linux/arm64/v8
-          push: ${{ steps.check-if-release.result == 'FALSE' }}
+          push: |
+            ${{ steps.compute-tag.outputs.result.startsWith("pr-") != true
+            && steps.compute-tag.outputs.result != "latest"
+            && steps.compute-tag.outputs.result != "FALSE" }}
