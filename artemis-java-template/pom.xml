@@ -21,7 +21,7 @@
         <dependency>
             <groupId>de.tum.in.ase</groupId>
             <artifactId>artemis-java-test-sandbox</artifactId>
-            <version>1.7.6</version>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -402,6 +402,46 @@
                     <!-- Similar to ignoreLiterals but for identifiers, i.e. variable names, methods names.
                     If activated, most tokens will be ignored so minimumTokens must be lowered significantly -->
                     <ignoreIdentifiers>false</ignoreIdentifiers>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>enforce-no-student-code-in-trusted-packages</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <rules>
+                        <requireFilesDontExist>
+                            <files>
+                                <file>${project.build.outputDirectory}/ch/qos/logback/</file>
+                                <file>${project.build.outputDirectory}/com/intellij/</file>
+                                <file>${project.build.outputDirectory}/com/sun/</file>
+                                <file>${project.build.outputDirectory}/de/tum/in/test/api/</file>
+                                <file>${project.build.outputDirectory}/java/</file>
+                                <file>${project.build.outputDirectory}/javax/</file>
+                                <file>${project.build.outputDirectory}/jdk/</file>
+                                <file>${project.build.outputDirectory}/net/jqwik/</file>
+                                <file>${project.build.outputDirectory}/org/apache/</file>
+                                <file>${project.build.outputDirectory}/org/assertj/</file>
+                                <file>${project.build.outputDirectory}/org/eclipse/</file>
+                                <file>${project.build.outputDirectory}/org/jacoco/</file>
+                                <file>${project.build.outputDirectory}/org/json/</file>
+                                <file>${project.build.outputDirectory}/org/junit/</file>
+                                <file>${project.build.outputDirectory}/org/opentest4j/</file>
+                                <file>${project.build.outputDirectory}/sun/</file>
+                                <file>${project.build.outputDirectory}/org/gradle/</file>
+                                <file>${project.build.outputDirectory}/worker/org/gradle/</file>
+                            </files>
+                        </requireFilesDontExist>
+                    </rules>
                 </configuration>
             </plugin>
         </plugins>
