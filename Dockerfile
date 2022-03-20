@@ -21,6 +21,10 @@ ADD artemis-java-template /opt/artemis-java-template
 
 RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test && mvn spotbugs:spotbugs checkstyle:checkstyle pmd:pmd
 
+RUN cd /opt/artemis-java-template && pwd && ls -la && ./gradlew clean install test && ./gradlew check
+
+RUN ./gradlew --version
+
 RUN rm -rf /opt/artemis-java-template
 
 CMD ["mvn"]
