@@ -1,0 +1,121 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'pmd'
+    id 'com.github.spotbugs' version '5.0.6'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.1'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+}
+
+def assignmentSrcDir = "assignment/src"
+def studentOutputDir = sourceSets.main.java.destinationDirectory.get()
+def scaConfigDirectory = "$projectDir/staticCodeAnalysisConfig"
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceSets {
+    test {
+        java {
+            srcDir "test"
+        }
+        resources {
+            srcDir "test"
+        }
+    }
+
+    main {
+        java {
+            srcDirs = [assignmentSrcDir]
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+}
+
+def forbiddenPackageFolders = [ //(2)
+                                "$studentOutputDir/ch/qos/logback/",
+                                "$studentOutputDir/com/intellij/",
+                                "$studentOutputDir/com/sun/",
+                                "$studentOutputDir/de/tum/in/test/api/",
+                                "$studentOutputDir/java/",
+                                "$studentOutputDir/javax/",
+                                "$studentOutputDir/jdk/",
+                                "$studentOutputDir/net/jqwik/",
+                                "$studentOutputDir/org/assertj/",
+                                "$studentOutputDir/org/apache/",
+                                "$studentOutputDir/org/eclipse/",
+                                "$studentOutputDir/org/gradle/",
+                                "$studentOutputDir/org/jacoco/",
+                                "$studentOutputDir/org/json/",
+                                "$studentOutputDir/org/junit/",
+                                "$studentOutputDir/org/opentest4j/",
+                                "$studentOutputDir/sun/",
+                                "$studentOutputDir/worker/org/gradle/"
+]
+test {
+    doFirst { //(1)
+        for (String packageFolder in forbiddenPackageFolders) {
+            assert !file(packageFolder).exists(): "$packageFolder must not exist within the submission."
+        }
+    }
+    useJUnitPlatform()
+}
+
+checkstyle {
+    configFile = file("$scaConfigDirectory/checkstyle-configuration.xml")
+    ignoreFailures = true
+    // exclude the test files
+    checkstyleTest.enabled = false
+    checkstyleMain.reports {
+        xml.outputLocation = file('target/checkstyle-result.xml')
+    }
+}
+
+spotbugs {
+    excludeFilter = file("$scaConfigDirectory/spotbugs-exclusions.xml")
+    ignoreFailures = true
+    // exclude the test files
+    spotbugsTest.enabled = false
+    spotbugsMain.reports {
+        xml {
+            enabled = true
+            outputLocation = file('target/spotbugsXml.xml')
+        }
+        html.enabled = false
+    }
+}
+
+pmd {
+    ruleSets = ["$scaConfigDirectory/pmd-configuration.xml"]
+    rulesMinimumPriority = 5
+    ignoreFailures = true
+    // exclude the test files
+    pmdTest.enabled = false
+    pmdMain.reports {
+        xml.outputLocation = file('target/pmd.xml')
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "de.tum.in.ase"
+            artifactId = "Artemis-Java-Gradle-Template"
+            version = '1.5'
+            from components.java
+        }
+    }
+}
+
