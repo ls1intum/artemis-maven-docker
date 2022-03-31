@@ -3,6 +3,7 @@ plugins {
     id 'checkstyle'
     id 'pmd'
     id 'com.github.spotbugs' version '5.0.6'
+    id 'maven-publish'
 }
 
 repositories {
@@ -11,15 +12,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.1'
+    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.1'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
 def assignmentSrcDir = "assignment/src"
 def studentOutputDir = sourceSets.main.java.destinationDirectory.get()
-// %static-code-analysis-start%
 def scaConfigDirectory = "$projectDir/staticCodeAnalysisConfig"
-// %static-code-analysis-stop%
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -28,12 +27,13 @@ tasks.withType(JavaCompile) {
 sourceSets {
     test {
         java {
-            srcDir = "test"
+            srcDir "test"
         }
         resources {
             srcDir "test"
         }
     }
+
     main {
         java {
             srcDirs = [assignmentSrcDir]
@@ -72,6 +72,7 @@ test {
     }
     useJUnitPlatform()
 }
+
 checkstyle {
     configFile = file("$scaConfigDirectory/checkstyle-configuration.xml")
     ignoreFailures = true
@@ -106,3 +107,15 @@ pmd {
         xml.outputLocation = file('target/pmd.xml')
     }
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "de.tum.in.ase"
+            artifactId = "Artemis-Java-Gradle-Template"
+            version = '1.5'
+            from components.java
+        }
+    }
+}
+
