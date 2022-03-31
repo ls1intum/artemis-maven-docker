@@ -31,4 +31,3 @@ Docker Container for Docker Hub
 	
 	docker push ls1tum/artemis-maven-template:java17-3
 
-	
