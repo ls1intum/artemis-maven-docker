@@ -4,6 +4,7 @@ plugins {
     id 'pmd'
     id 'com.github.spotbugs' version '5.0.6'
     id 'maven-publish'
+    id 'com.teamscale' version '23.0.0'
 }
 
 repositories {
@@ -12,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.1'
+    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
@@ -62,7 +63,13 @@ def forbiddenPackageFolders = [ //(2)
                                 "$studentOutputDir/org/junit/",
                                 "$studentOutputDir/org/opentest4j/",
                                 "$studentOutputDir/sun/",
-                                "$studentOutputDir/worker/org/gradle/"
+                                "$studentOutputDir/worker/org/gradle/",
+                                "$studentOutputDir/com/teamscale/",
+                                "$studentOutputDir/okhttp3/",
+                                "$studentOutputDir/retrofit2/",
+                                "$studentOutputDir/shadow/",
+                                "$studentOutputDir/com/squareup/",
+                                "$studentOutputDir/okio/"
 ]
 test {
     doFirst { //(1)
@@ -105,6 +112,20 @@ pmd {
     pmdTest.enabled = false
     pmdMain.reports {
         xml.outputLocation = file('target/pmd.xml')
+    }
+}
+
+tasks.register('tiaTests', com.teamscale.TestImpacted) {
+    systemProperty "ares.security.trustedpackages", "okhttp3,com.teamscale,retrofit2,shadow,com.squareup,okio"
+    useJUnitPlatform()
+    filter {
+        excludeTestsMatching "AttributeTest"
+        excludeTestsMatching "ConstructorTest"
+        excludeTestsMatching "ClassTest"
+        excludeTestsMatching "MethodTest"
+    }
+    jacoco {
+        includes = ["de.tum.in.ase.*"]
     }
 }
 
