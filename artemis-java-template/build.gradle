@@ -4,6 +4,7 @@ plugins {
     id 'pmd'
     id 'com.github.spotbugs' version '5.0.6'
     id 'maven-publish'
+    id 'com.teamscale' version '23.0.0'
 }
 
 repositories {
@@ -12,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.1'
+    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.9.2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
