@@ -13,7 +13,7 @@
         <powermock1.version>1.7.4</powermock1.version>
         <mockito3.version>3.12.4</mockito3.version>
         <mockito4.version>4.0.0</mockito4.version>
-        <springboot.version>2.6.3</springboot.version>
+        <springboot.version>2.6.6</springboot.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -425,7 +425,7 @@
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-java</artifactId>
-                        <version>6.41.0</version>
+                        <version>6.44.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
