@@ -8,7 +8,7 @@
     <name>Artemis Java Template</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>17.0.2</javafx.version>
+        <javafx.version>18</javafx.version>
         <powermock2.version>2.0.9</powermock2.version>
         <powermock1.version>1.7.4</powermock1.version>
         <mockito3.version>3.12.4</mockito3.version>
