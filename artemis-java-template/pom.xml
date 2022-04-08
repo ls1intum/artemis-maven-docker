@@ -238,19 +238,8 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-interpolation</artifactId>
-            <version>1.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-components</artifactId>
             <version>1.1.14</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-components</artifactId>
-            <version>1.1.15</version>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -279,6 +268,11 @@
             <groupId>classworlds</groupId>
             <artifactId>classworlds</artifactId>
             <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
     <build>
