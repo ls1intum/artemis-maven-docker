@@ -2,9 +2,9 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'pmd'
-    id 'com.github.spotbugs' version '5.0.6'
+    id 'com.github.spotbugs' version '5.0.12'
     id 'maven-publish'
-    id 'com.teamscale' version '23.0.0'
+    id 'com.teamscale' version '26.0.1'
 }
 
 repositories {
