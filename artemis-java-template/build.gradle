@@ -1,11 +1,12 @@
 plugins {
-    id 'java'
     id 'checkstyle'
     id 'pmd'
     id 'com.github.spotbugs' version '5.0.12'
     id 'maven-publish'
     id 'com.teamscale' version '26.0.1'
 }
+
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
@@ -21,9 +22,8 @@ def assignmentSrcDir = "assignment/src"
 def studentOutputDir = sourceSets.main.java.destinationDirectory.get()
 def scaConfigDirectory = "$projectDir/staticCodeAnalysisConfig"
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 sourceSets {
     test {
@@ -71,6 +71,7 @@ test {
             assert !file(packageFolder).exists(): "$packageFolder must not exist within the submission."
         }
     }
+    defaultCharacterEncoding = 'UTF-8'
     useJUnitPlatform()
 }
 
