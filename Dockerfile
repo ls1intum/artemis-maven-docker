@@ -6,7 +6,7 @@ FROM maven:3-eclipse-temurin-17-focal
 
 MAINTAINER Stephan Krusche <krusche@in.tum.de>
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     gnupg \
  && rm -rf /var/lib/apt/lists/*
 
