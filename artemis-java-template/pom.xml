@@ -12,7 +12,7 @@
         <javafx.version>17.0.2</javafx.version>
         <mockito.version>5.1.1</mockito.version>
         <springboot.version>3.0.2</springboot.version>
-        <bytebuddy.version>1.12.22</bytebuddy.version>
+        <bytebuddy.version>1.12.23</bytebuddy.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>de.tum.in.ase</groupId>
             <artifactId>artemis-java-test-sandbox</artifactId>
-            <version>1.11.1</version>
+            <version>1.11.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
