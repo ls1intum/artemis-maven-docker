@@ -3,11 +3,11 @@ plugins {
     id 'pmd'
     id 'com.github.spotbugs' version '5.0.13'
     id 'maven-publish'
-    id 'com.teamscale' version '27.0.1'
+    id 'com.teamscale' version '29.1.2'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.springframework.boot' version '3.0.2'
     id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.checkerframework' version '0.6.20'
+    id 'org.checkerframework' version '0.6.23'
 }
 
 apply plugin: 'java'
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.11.2'
+    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.11.3'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 

@@ -12,7 +12,7 @@
         <javafx.version>17.0.2</javafx.version>
         <mockito.version>5.1.1</mockito.version>
         <springboot.version>3.0.2</springboot.version>
-        <bytebuddy.version>1.12.23</bytebuddy.version>
+        <bytebuddy.version>1.13.0</bytebuddy.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>de.tum.in.ase</groupId>
             <artifactId>artemis-java-test-sandbox</artifactId>
-            <version>1.11.2</version>
+            <version>1.11.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -260,23 +260,23 @@
                     <dependency>
                         <groupId>org.eclipse.tycho</groupId>
                         <artifactId>tycho-compiler-jdt</artifactId>
-                        <version>2.7.0</version>
+                        <version>3.0.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.0.0-M8</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M8</version>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -299,7 +299,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <!-- mvn clean compile assembly:single -->
-                <version>3.3.0</version>
+                <version>3.4.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -334,12 +334,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.2.1</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>10.5.0</version>
+                        <version>10.7.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -356,17 +356,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.19.0</version>
+                <version>3.20.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-core</artifactId>
-                        <version>6.52.0</version>
+                        <version>6.54.0</version>
                     </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-java</artifactId>
-                        <version>6.52.0</version>
+                        <version>6.54.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -391,7 +391,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>enforce-no-student-code-in-trusted-packages</id>
@@ -444,7 +444,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.0.0-M5</version>
+                        <version>3.0.0-M8</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <ares.security.trustedpackages>okhttp3,com.teamscale,retrofit2,shadow,com.squareup,okio</ares.security.trustedpackages>
@@ -454,18 +454,18 @@
                             <dependency>
                                 <groupId>com.teamscale</groupId>
                                 <artifactId>teamscale-surefire-provider</artifactId>
-                                <version>26.0.1</version>
+                                <version>29.1.2</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>com.teamscale</groupId>
                         <artifactId>teamscale-maven-plugin</artifactId>
-                        <version>26.0.1</version>
+                        <version>29.1.2</version>
                         <configuration>
                             <teamscaleUrl>http://localhost</teamscaleUrl>
                             <accessToken>dummy</accessToken>
-                            <projectId>${exerciseNamePomXml}-Tests</projectId>
+                            <projectId>Artemis-Java-Template-Tests</projectId>
                             <username>dummy</username>
                             <partition>testwise</partition>
                             <includes>
