@@ -1,13 +1,13 @@
 plugins {
     id 'checkstyle'
     id 'pmd'
-    id 'com.github.spotbugs' version '5.0.13'
+    id 'com.github.spotbugs' version '5.0.14'
     id 'maven-publish'
-    id 'com.teamscale' version '29.1.2'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
-    id 'org.springframework.boot' version '3.0.3'
+    id 'com.teamscale' version '30.0.2'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.checkerframework' version '0.6.24'
+    id 'org.checkerframework' version '0.6.27'
 }
 
 apply plugin: 'java'
