@@ -251,7 +251,7 @@
                             <optimize>true</optimize>
                             <failOnError>false</failOnError>
                             <compilerArguments>
-                                <proceedOnError />
+                                <proceedOnError/>
                             </compilerArguments>
                         </configuration>
                     </execution>
@@ -438,6 +438,13 @@
     <profiles>
         <profile>
             <id>coverage</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.teamscale</groupId>
+                    <artifactId>impacted-test-engine</artifactId>
+                    <version>30.1.1</version>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -449,13 +456,6 @@
                                 <ares.security.trustedpackages>okhttp3,com.teamscale,retrofit2,shadow,com.squareup,okio</ares.security.trustedpackages>
                             </systemPropertyVariables>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.teamscale</groupId>
-                                <artifactId>teamscale-surefire-provider</artifactId>
-                                <version>29.1.3</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>com.teamscale</groupId>
