@@ -23,7 +23,7 @@ RUN echo "$LANG -- $LANGUAGE -- $LC_ALL" \
 
 ADD artemis-java-template /opt/artemis-java-template
 
-RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test -Pcoverage && mvn spotbugs:spotbugs checkstyle:checkstyle pmd:pmd
+RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test && mvn spotbugs:spotbugs checkstyle:checkstyle pmd:pmd
 
 RUN cd /opt/artemis-java-template && pwd && ls -la && ./gradlew clean test check -x test publishToMavenLocal && ./gradlew --version
 
