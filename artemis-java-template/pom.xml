@@ -218,11 +218,6 @@
             <artifactId>maven-resources-plugin</artifactId>
             <version>3.3.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.teamscale</groupId>
-            <artifactId>impacted-test-engine</artifactId>
-            <version>30.1.1</version>
-        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>${project.basedir}/assignment/src</sourceDirectory>
@@ -443,6 +438,14 @@
     <profiles>
         <profile>
             <id>coverage</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.teamscale</groupId>
+                    <artifactId>impacted-test-engine</artifactId>
+                    <version>30.1.1</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
