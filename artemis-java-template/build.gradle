@@ -1,13 +1,13 @@
 plugins {
     id 'checkstyle'
     id 'pmd'
-    id 'com.github.spotbugs' version '5.0.14'
+    id 'com.github.spotbugs' version '5.1.1'
     id 'maven-publish'
-    id 'com.teamscale' version '30.0.2'
+    id 'com.teamscale' version '30.1.1'
     id 'org.openjfx.javafxplugin' version '0.0.14'
-    id 'org.springframework.boot' version '3.1.0'
-    id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.checkerframework' version '0.6.27'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+    id 'org.checkerframework' version '0.6.30'
 }
 
 apply plugin: 'java'
@@ -19,8 +19,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.11.3'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.13.0'
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
 }
 
 def assignmentSrcDir = "assignment/src"

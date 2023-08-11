@@ -11,8 +11,8 @@
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <javafx.version>17.0.2</javafx.version>
         <mockito.version>5.2.0</mockito.version>
-        <springboot.version>3.1.0</springboot.version>
-        <bytebuddy.version>1.14.4</bytebuddy.version>
+        <springboot.version>3.1.2</springboot.version>
+        <bytebuddy.version>1.14.5</bytebuddy.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
@@ -20,23 +20,23 @@
         <dependency>
             <groupId>de.tum.in.ase</groupId>
             <artifactId>artemis-java-test-sandbox</artifactId>
-            <version>1.11.3</version>
+            <version>1.13.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+            <version>3.13.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.9.2</version>
+            <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-testkit</artifactId>
-            <version>1.9.2</version>
+            <version>1.10.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20230227</version>
+            <version>20230618</version>
         </dependency>
         <dependency>
             <groupId>me.xdrop</groupId>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
-            <version>6.5.0.202303070854-r</version>
+            <version>6.6.0.202305301015-r</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -117,7 +117,7 @@
         <dependency>
             <groupId>com.konghq</groupId>
             <artifactId>unirest-java</artifactId>
-            <version>3.14.1</version>
+            <version>3.14.5</version>
         </dependency>
         <dependency>
             <groupId>org.easymock</groupId>
@@ -157,7 +157,7 @@
         <dependency>
             <groupId>net.jqwik</groupId>
             <artifactId>jqwik</artifactId>
-            <version>1.7.2</version>
+            <version>1.7.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -183,7 +183,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-components</artifactId>
-            <version>10.0</version>
+            <version>14.1</version>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -251,7 +251,7 @@
                             <optimize>true</optimize>
                             <failOnError>false</failOnError>
                             <compilerArguments>
-                                <proceedOnError />
+                                <proceedOnError/>
                             </compilerArguments>
                         </configuration>
                     </execution>
@@ -260,23 +260,23 @@
                     <dependency>
                         <groupId>org.eclipse.tycho</groupId>
                         <artifactId>tycho-compiler-jdt</artifactId>
-                        <version>3.0.4</version>
+                        <version>4.0.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.2</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M8</version>
+                <version>3.1.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -299,7 +299,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <!-- mvn clean compile assembly:single -->
-                <version>3.4.2</version>
+                <version>3.6.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -339,7 +339,7 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>10.12.0</version>
+                        <version>10.12.2</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -404,6 +404,7 @@
                         <requireFilesDontExist>
                             <files>
                                 <file>${project.build.outputDirectory}/ch/qos/logback/</file>
+                                <file>${project.build.outputDirectory}/com/github/javaparser/</file>
                                 <file>${project.build.outputDirectory}/com/intellij/</file>
                                 <file>${project.build.outputDirectory}/com/sun/</file>
                                 <file>${project.build.outputDirectory}/de/tum/in/test/api/</file>
@@ -437,29 +438,30 @@
     <profiles>
         <profile>
             <id>coverage</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.teamscale</groupId>
+                    <artifactId>impacted-test-engine</artifactId>
+                    <version>30.1.1</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.1.2</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <ares.security.trustedpackages>okhttp3,com.teamscale,retrofit2,shadow,com.squareup,okio</ares.security.trustedpackages>
                             </systemPropertyVariables>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.teamscale</groupId>
-                                <artifactId>teamscale-surefire-provider</artifactId>
-                                <version>30.0.2</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>com.teamscale</groupId>
                         <artifactId>teamscale-maven-plugin</artifactId>
-                        <version>30.0.2</version>
+                        <version>30.1.1</version>
                         <configuration>
                             <teamscaleUrl>http://localhost</teamscaleUrl>
                             <accessToken>dummy</accessToken>
