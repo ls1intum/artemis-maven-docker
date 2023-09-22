@@ -20,6 +20,8 @@ repositories {
 
 dependencies {
     testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.13.0'
+    testImplementation 'net.bytebuddy:byte-buddy:1.12.21'
+
     implementation 'org.apache.commons:commons-lang3:3.13.0'
 }
 
