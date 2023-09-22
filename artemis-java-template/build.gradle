@@ -122,7 +122,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = "de.tum.in.ase"
             artifactId = "Artemis-Java-Gradle-Template"
-            version = '1.5'
+            version = '1.6'
             from components.java
         }
     }
