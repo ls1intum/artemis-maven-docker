@@ -11,7 +11,7 @@
         <argLine>-Dfile.encoding=UTF-8</argLine>
         <javafx.version>17.0.8</javafx.version>
         <mockito.version>5.11.0</mockito.version>
-        <springboot.version>3.2.4</springboot.version>
+        <springboot.version>3.2.5</springboot.version>
         <bytebuddy.version>1.14.13</bytebuddy.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
