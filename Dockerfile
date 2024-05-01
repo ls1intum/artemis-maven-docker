@@ -1,4 +1,4 @@
-FROM maven:3-eclipse-temurin-17
+FROM maven:3-eclipse-temurin-22
 
 MAINTAINER Stephan Krusche <krusche@tum.de>
 
