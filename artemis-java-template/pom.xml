@@ -461,7 +461,7 @@
                     <plugin>
                         <groupId>com.teamscale</groupId>
                         <artifactId>teamscale-maven-plugin</artifactId>
-                        <version>33.1.2</version>
+                        <version>33.3.2</version>
                         <configuration>
                             <teamscaleUrl>http://localhost</teamscaleUrl>
                             <accessToken>dummy</accessToken>
