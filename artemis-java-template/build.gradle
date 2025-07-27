@@ -1,17 +1,17 @@
 plugins {
-    id 'checkstyle'
-    id 'pmd'
-    id 'com.github.spotbugs' version '6.2.2'
-    id 'maven-publish'
-    id 'com.teamscale' version '35.2.1'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
-    id 'org.springframework.boot' version '3.5.4'
-    id 'io.spring.dependency-management' version '1.1.7'
-    id 'org.checkerframework' version '0.6.56'
+    id "checkstyle"
+    id "pmd"
+    id "com.github.spotbugs" version "6.2.2"
+    id "maven-publish"
+    id "com.teamscale" version "35.2.1"
+    id "org.openjfx.javafxplugin" version "0.1.0"
+    id "org.springframework.boot" version "3.5.4"
+    id "io.spring.dependency-management" version "1.1.7"
+    id "org.checkerframework" version "0.6.56"
 }
 
-apply plugin: 'java'
-apply plugin: 'org.checkerframework'
+apply plugin: "java"
+apply plugin: "org.checkerframework"
 
 repositories {
     mavenCentral()
@@ -19,18 +19,23 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'de.tum.in.ase:artemis-java-test-sandbox:1.13.0'
-    testImplementation 'net.bytebuddy:byte-buddy:1.17.6'
+    testImplementation "de.tum.in.ase:artemis-java-test-sandbox:1.13.0"
+    testImplementation "net.bytebuddy:byte-buddy:1.17.6"
 
-    implementation 'org.apache.commons:commons-lang3:3.18.0'
+    implementation "org.apache.commons:commons-lang3:${commons_lang3_version}"
+
+    pmd "org.apache.commons:commons-lang3:${commons_lang3_version}"
+    checkstyle "org.apache.commons:commons-lang3:${commons_lang3_version}"
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle_version}"
+    spotbugs "org.apache.commons:commons-lang3:${commons_lang3_version}"
 }
 
 def assignmentSrcDir = "assignment/src"
 def studentOutputDir = sourceSets.main.java.destinationDirectory.get()
 def scaConfigDirectory = "$projectDir/staticCodeAnalysisConfig"
 
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
 
 sourceSets {
     test {
@@ -78,7 +83,7 @@ test {
             assert !file(packageFolder).exists(): "$packageFolder must not exist within the submission."
         }
     }
-    defaultCharacterEncoding = 'UTF-8'
+    defaultCharacterEncoding = "UTF-8"
     useJUnitPlatform()
 }
 
@@ -88,7 +93,7 @@ checkstyle {
     // exclude the test files
     checkstyleTest.enabled = false
     checkstyleMain.reports {
-        xml.outputLocation = file('target/checkstyle-result.xml')
+        xml.outputLocation = file("target/checkstyle-result.xml")
     }
 }
 
@@ -100,7 +105,7 @@ spotbugs {
     spotbugsMain.reports {
         xml {
             required.set(true)
-            outputLocation.set(file('target/spotbugsXml.xml'))
+            outputLocation.set(file("target/spotbugsXml.xml"))
         }
         html.required.set(false)
     }
@@ -110,11 +115,11 @@ pmd {
     ruleSets = ["$scaConfigDirectory/pmd-configuration.xml"]
     rulesMinimumPriority = 5
     ignoreFailures = true
-    toolVersion = '7.16.0'
+    toolVersion = "7.16.0"
     // exclude the test files
     pmdTest.enabled = false
     pmdMain.reports {
-        xml.outputLocation = file('target/pmd.xml')
+        xml.outputLocation = file("target/pmd.xml")
     }
 }
 
@@ -123,7 +128,7 @@ publishing {
         create("mavenJava", MavenPublication) {
             groupId = "de.tum.in.ase"
             artifactId = "Artemis-Java-Gradle-Template"
-            version = '1.6'
+            version = "1.6"
             from components.java
         }
     }
