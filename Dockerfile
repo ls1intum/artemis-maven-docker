@@ -1,12 +1,11 @@
-FROM maven:3.9.6-eclipse-temurin-17
+FROM maven:3.9.11-eclipse-temurin-17
 
-MAINTAINER Stephan Krusche <krusche@tum.de>
+LABEL maintainer="Stephan Krusche <krusche@tum.de>"
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-    gnupg \
- && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends gnupg && \
+    rm -rf /var/lib/apt/lists/*
 
-ENV M2_HOME /usr/share/maven
+ENV M2_HOME=/usr/share/maven
 
 RUN echo "$LANG -- $LANGUAGE -- $LC_ALL" \
     && curl --version \
@@ -15,7 +14,6 @@ RUN echo "$LANG -- $LANGUAGE -- $LC_ALL" \
     && mvn --version \
     && java --version \
     && javac --version
-
 
 ADD artemis-java-template /opt/artemis-java-template
 
