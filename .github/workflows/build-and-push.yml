@@ -67,7 +67,7 @@ jobs:
 
       -
         name: Build Image and Push to GitHub Container Registry and DockerHub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         if: ${{ steps.compute-tag.outputs.result != 'FALSE' }}
         with:
           context: .
