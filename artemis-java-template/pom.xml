@@ -12,7 +12,7 @@
         <javafx.version>17.0.8</javafx.version>
         <mockito.version>5.18.0</mockito.version>
         <springboot.version>3.5.4</springboot.version>
-        <bytebuddy.version>1.17.6</bytebuddy.version>
+        <bytebuddy.version>1.17.7</bytebuddy.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
     </properties>
