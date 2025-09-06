@@ -1,7 +1,7 @@
 plugins {
     id "checkstyle"
     id "pmd"
-    id "com.github.spotbugs" version "6.2.2"
+    id "com.github.spotbugs" version "6.3.0"
     id "maven-publish"
     id "com.teamscale" version "35.2.1"
     id "org.openjfx.javafxplugin" version "0.1.0"
