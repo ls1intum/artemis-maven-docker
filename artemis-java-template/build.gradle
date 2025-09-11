@@ -24,7 +24,8 @@ dependencies {
 
     implementation "org.apache.commons:commons-lang3:${commons_lang3_version}"
 
-    pmd "org.apache.commons:commons-lang3:${commons_lang3_version}"
+    // NOTE: for some reason, we cannot switch to the latest version here, then pmd would fail with a classloading error
+//    pmd "org.apache.commons:commons-lang3:${commons_lang3_version}"
     checkstyle "org.apache.commons:commons-lang3:${commons_lang3_version}"
     checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle_version}"
     spotbugs "org.apache.commons:commons-lang3:${commons_lang3_version}"
