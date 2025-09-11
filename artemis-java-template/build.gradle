@@ -1,7 +1,7 @@
 plugins {
     id "checkstyle"
     id "pmd"
-    id "com.github.spotbugs" version "6.2.2"
+    id "com.github.spotbugs" version "6.3.0"
     id "maven-publish"
     id "com.teamscale" version "35.2.1"
     id "org.openjfx.javafxplugin" version "0.1.0"
@@ -116,11 +116,17 @@ pmd {
     rulesMinimumPriority = 5
     ignoreFailures = true
     toolVersion = "7.16.0"
-    // exclude the test files
-    pmdTest.enabled = false
-    pmdMain.reports {
-        xml.outputLocation = file("target/pmd.xml")
+}
+
+tasks.named("pmdMain") {
+    reports {
+        xml.required.set(true)
+        xml.outputLocation.set(file("target/pmd.xml"))
     }
+}
+
+tasks.named("pmdTest").configure {
+    enabled = false
 }
 
 publishing {
