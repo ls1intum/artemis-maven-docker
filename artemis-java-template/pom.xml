@@ -9,7 +9,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <argLine>-Dfile.encoding=UTF-8</argLine>
-        <javafx.version>17.0.8</javafx.version>
+        <javafx.version>17.0.17-ea+1</javafx.version>
         <mockito.version>5.19.0</mockito.version>
         <springboot.version>3.5.5</springboot.version>
         <bytebuddy.version>1.17.7</bytebuddy.version>
