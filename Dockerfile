@@ -2,8 +2,11 @@ FROM maven:3.9.11-eclipse-temurin-17
 
 LABEL maintainer="Stephan Krusche <krusche@tum.de>"
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends gnupg && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends \
+        gnupg \
+        docker.io \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV M2_HOME=/usr/share/maven
 
@@ -13,7 +16,8 @@ RUN echo "$LANG -- $LANGUAGE -- $LC_ALL" \
     && git --version \
     && mvn --version \
     && java --version \
-    && javac --version
+    && javac --version \
+    && docker --version
 
 ADD artemis-java-template /opt/artemis-java-template
 
