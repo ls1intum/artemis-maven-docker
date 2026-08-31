@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+    // Keep the offline build image aligned with the dependency constraints in Artemis Java test templates.
+    testImplementation "ch.qos.logback:logback-classic:1.5.38"
+    testImplementation "ch.qos.logback:logback-core:1.5.38"
+    testImplementation "org.assertj:assertj-core:3.27.7"
     testImplementation "de.tum.in.ase:artemis-java-test-sandbox:1.15.0"
     testImplementation "net.bytebuddy:byte-buddy:1.17.6"
 
