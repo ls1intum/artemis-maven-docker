@@ -1,26 +1,63 @@
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.process.CommandLineArgumentProvider
+
 plugins {
     id "checkstyle"
     id "pmd"
-    id "com.github.spotbugs" version "6.3.0"
+    id "com.github.spotbugs" version "6.5.12"
     id "maven-publish"
-    id "com.teamscale" version "35.2.1"
+    id "com.teamscale" version "39.0.0"
     id "org.openjfx.javafxplugin" version "0.1.0"
-    id "org.springframework.boot" version "3.5.4"
+    id "org.springframework.boot" version "4.1.1"
     id "io.spring.dependency-management" version "1.1.7"
-    id "org.checkerframework" version "0.6.56"
+    id "org.checkerframework" version "1.0.2"
+    id "io.freefair.aspectj.post-compile-weaving" version "9.8.0"
 }
 
 apply plugin: "java"
 apply plugin: "org.checkerframework"
+
+// Only report nullness problems as warnings, they must not break the build
+checkerFramework {
+    version = "4.3.0"
+    checkers = ["org.checkerframework.checker.nullness.NullnessChecker"]
+    extraJavacArgs = ["-Awarns"]
+}
 
 repositories {
     mavenCentral()
     mavenLocal()
 }
 
+ext {
+    aresVersion = "2.1.5"
+    aspectjVersion = "1.9.25.1"
+}
+
+configurations {
+    // transitive = false: each configuration resolves to exactly one JAR, which is used by file path below
+    aresAgent {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
+    aresAspectjRuntime {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
+}
+
 dependencies {
-    testImplementation "de.tum.in.ase:artemis-java-test-sandbox:1.15.0"
-    testImplementation "net.bytebuddy:byte-buddy:1.17.6"
+    aresAgent "de.tum.cit.ase:ares:${aresVersion}:agent"
+    aresAspectjRuntime "org.aspectj:aspectjrt:${aspectjVersion}"
+    testImplementation "de.tum.cit.ase:ares:${aresVersion}"
+    // Puts Ares on the aspect path of ajc, otherwise nothing is woven
+    aspect "de.tum.cit.ase:ares:${aresVersion}"
+    implementation "org.aspectj:aspectjrt:${aspectjVersion}"
+    testImplementation "net.bytebuddy:byte-buddy:1.18.14"
 
     implementation "org.apache.commons:commons-lang3:${commons_lang3_version}"
 
@@ -31,8 +68,46 @@ dependencies {
     spotbugs "org.apache.commons:commons-lang3:${commons_lang3_version}"
 }
 
+abstract class AresJvmArguments implements CommandLineArgumentProvider {
+    @InputFiles
+    @PathSensitive(PathSensitivity.NONE)
+    abstract ConfigurableFileCollection getAgentJar()
+
+    @InputFiles
+    @PathSensitive(PathSensitivity.NONE)
+    abstract ConfigurableFileCollection getAspectjRuntimeJar()
+
+    @Override
+    Iterable<String> asArguments() {
+        [
+                "-javaagent:${agentJar.singleFile.absolutePath}".toString(),
+                "-Xbootclasspath/a:${aspectjRuntimeJar.singleFile.absolutePath}".toString(),
+                "--add-exports", "java.base/java.lang=ALL-UNNAMED",
+                "--add-exports", "java.base/jdk.internal.misc=ALL-UNNAMED",
+                "--add-opens", "java.base/java.io=ALL-UNNAMED",
+                "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+                "--add-opens", "java.base/java.lang.reflect=ALL-UNNAMED",
+                "--add-opens", "java.base/java.net=ALL-UNNAMED",
+                "--add-opens", "java.base/java.nio=ALL-UNNAMED",
+                "--add-opens", "java.base/java.nio.channels=ALL-UNNAMED",
+                "--add-opens", "java.base/java.util=ALL-UNNAMED",
+                "--add-opens", "java.base/java.util.concurrent=ALL-UNNAMED",
+                "--add-opens", "java.base/java.util.concurrent.atomic=ALL-UNNAMED",
+                "--add-opens", "java.base/java.util.concurrent.locks=ALL-UNNAMED",
+                "--add-opens", "java.base/jdk.internal.misc=ALL-UNNAMED",
+                "--add-opens", "java.base/sun.net.www.protocol.http=ALL-UNNAMED",
+                "--add-opens", "java.base/sun.net.www.protocol.https=ALL-UNNAMED",
+                "--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED",
+                "--add-opens", "jdk.unsupported/sun.misc=ALL-UNNAMED"
+        ]
+    }
+}
+
+def aresJvmArguments = objects.newInstance(AresJvmArguments)
+aresJvmArguments.agentJar.from(configurations.aresAgent)
+aresJvmArguments.aspectjRuntimeJar.from(configurations.aresAspectjRuntime)
+
 def assignmentSrcDir = "assignment/src"
-def studentOutputDir = sourceSets.main.java.destinationDirectory.get()
 def scaConfigDirectory = "$projectDir/staticCodeAnalysisConfig"
 
 compileJava.options.encoding = "UTF-8"
@@ -58,34 +133,10 @@ sourceSets {
     }
 }
 
-def forbiddenPackageFolders = [ //(2)
-                                "$studentOutputDir/ch/qos/logback/",
-                                "$studentOutputDir/com/intellij/",
-                                "$studentOutputDir/com/sun/",
-                                "$studentOutputDir/de/tum/in/test/api/",
-                                "$studentOutputDir/java/",
-                                "$studentOutputDir/javax/",
-                                "$studentOutputDir/jdk/",
-                                "$studentOutputDir/net/jqwik/",
-                                "$studentOutputDir/org/assertj/",
-                                "$studentOutputDir/org/apache/",
-                                "$studentOutputDir/org/eclipse/",
-                                "$studentOutputDir/org/gradle/",
-                                "$studentOutputDir/org/jacoco/",
-                                "$studentOutputDir/org/json/",
-                                "$studentOutputDir/org/junit/",
-                                "$studentOutputDir/org/opentest4j/",
-                                "$studentOutputDir/sun/",
-                                "$studentOutputDir/worker/org/gradle/"
-]
 test {
-    doFirst { //(1)
-        for (String packageFolder in forbiddenPackageFolders) {
-            assert !file(packageFolder).exists(): "$packageFolder must not exist within the submission."
-        }
-    }
     defaultCharacterEncoding = "UTF-8"
     useJUnitPlatform()
+    jvmArgumentProviders.add(aresJvmArguments)
 }
 
 checkstyle {
@@ -116,7 +167,7 @@ pmd {
     ruleSets = ["$scaConfigDirectory/pmd-configuration.xml"]
     rulesMinimumPriority = 5
     ignoreFailures = true
-    toolVersion = "7.16.0"
+    toolVersion = "7.28.0"
 }
 
 tasks.named("pmdMain") {
@@ -141,3 +192,5 @@ publishing {
     }
 }
 
+// Ares reserved-package build boundary, version 2
+apply from: "gradle/AresReservedPackages.gradle"

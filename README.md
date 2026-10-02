@@ -23,7 +23,7 @@ Docker Container for Docker Hub
 	
 #### Example
 
-	docker buildx build --no-cache -t ls1tum/artemis-maven-template:java17-9 . --push --platform=linux/arm64,linux/amd64	
+	docker buildx build --no-cache -t ls1tum/artemis-maven-template:java25-1 . --push --platform=linux/arm64,linux/amd64	
 
 #### Github Action
 
