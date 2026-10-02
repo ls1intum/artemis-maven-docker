@@ -11,7 +11,7 @@
         <javafx.version>27</javafx.version>
         <mockito.version>5.24.0</mockito.version>
         <springboot.version>4.1.1</springboot.version>
-        <bytebuddy.version>1.18.14</bytebuddy.version>
+        <bytebuddy.version>1.18.14-jdk5</bytebuddy.version>
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
         <ares.version>2.1.5</ares.version>
