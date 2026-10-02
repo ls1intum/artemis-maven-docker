@@ -1,0 +1,83 @@
+[
+    {
+        "class": {
+            "name": "MergeSort",
+            "package": "de.tum.cit.exercise",
+            "interfaces": [ "SortStrategy" ]
+        }
+    },
+    {
+        "class": {
+            "name": "Context",
+            "package": "de.tum.cit.exercise"
+        },
+        "methods": [
+            {
+                "name": "sort",
+                "modifiers": [ "public", "final" ],
+                "returnType": "void"
+            }
+        ],
+        "attributes": [
+            {
+                "name": "sortAlgorithm",
+                "modifiers": [ "private" ],
+                "type": "SortStrategy"
+            },
+            {
+                "name": "array",
+                "modifiers": [ "private" ],
+                "type": "Integer[]"
+            }
+        ]
+    },
+    {
+        "class": {
+            "name": "Policy",
+            "package": "de.tum.cit.exercise"
+        },
+        "methods": [
+            {
+                "name": "configure",
+                "modifiers": [ "public", "final" ],
+                "parameters": [ "boolean", "boolean" ],
+                "returnType": "void"
+            }
+        ],
+        "attributes": [
+            {
+                "name": "context",
+                "modifiers": [ "private", "final" ],
+                "type": "Context"
+            }
+        ],
+        "constructors": [
+            {
+                "modifiers": [ "public" ],
+                "parameters": [ "Context" ]
+            }
+        ]
+    },
+    {
+        "class": {
+            "name": "SortStrategy",
+            "package": "de.tum.cit.exercise",
+            "isInterface": true
+        },
+        "methods": [
+            {
+                "name": "performSort",
+                "modifiers": [ "public", "abstract" ],
+                "parameters": [ "Integer[]" ],
+                "returnType": "void"
+            }
+        ]
+    },
+    {
+        "class": {
+            "name": "QuickSort",
+            "package": "de.tum.cit.exercise",
+            "interfaces": [ "SortStrategy" ]
+        }
+    }
+]

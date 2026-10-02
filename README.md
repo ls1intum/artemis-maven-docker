@@ -29,3 +29,9 @@ Docker Container for Docker Hub
 
 Note that each commit will automatically lead to a new image on DockerHub using the `latest` tag.
 Creating a release (with a unique tag) will automatically create a new image on DockerHub using the tag name.
+
+#### Cached Artemis templates
+
+The directory `artemis-templates` contains the test repositories (including a solution) that Artemis generates for Java (Maven, Gradle) and Kotlin (Maven) programming exercises.
+The Dockerfile builds them once so that their dependencies and plugins (including the transitive dependencies of Ares 2) are part of the image and builds on Artemis do not need to download them.
+When the templates in Artemis change (e.g. new dependency versions), render them again and replace the content of this directory.
