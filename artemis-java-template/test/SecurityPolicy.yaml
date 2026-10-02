@@ -1,0 +1,19 @@
+thisPolicyFileCompliesToThePolicyVersion: 1
+regardingTheSupervisedCode:
+  theFollowingProgrammingLanguageConfigurationIsUsed: JAVA_USING_MAVEN_ARCHUNIT_AND_ASPECTJ
+  theSupervisedCodeUsesTheFollowingPackage: "de.tum.in.ase"
+  theMainClassInsideThisPackageIs: "Client"
+  theFollowingClassesAreTestClasses:
+    - "de.tum.in.ase.AttributeTest"
+    - "de.tum.in.ase.ClassTest"
+    - "de.tum.in.ase.ConstructorTest"
+    - "de.tum.in.ase.MethodTest"
+    - "de.tum.in.ase.SortingExampleBehaviorTest"
+  theFollowingResourceAccessesArePermitted:
+    regardingFileSystemInteractions: [ ]
+    regardingNetworkConnections: [ ]
+    regardingCommandExecutions: [ ]
+    regardingThreadCreations: [ ]
+    regardingPackageImports:
+      - importTheFollowingPackage: "org.apache.commons.lang3"
+    regardingTimeouts: [ ]

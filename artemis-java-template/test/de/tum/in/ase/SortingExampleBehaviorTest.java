@@ -7,20 +7,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.*;
 import java.util.*;
 
-import static de.tum.in.test.api.util.ReflectionTestUtils.*;
+import static de.tum.cit.ase.ares.api.util.ReflectionTestUtils.*;
 
-import de.tum.in.test.api.BlacklistPath;
-import de.tum.in.test.api.PathType;
-import de.tum.in.test.api.StrictTimeout;
-import de.tum.in.test.api.WhitelistPath;
-import de.tum.in.test.api.jupiter.Public;
+import de.tum.cit.ase.ares.api.Policy;
+import de.tum.cit.ase.ares.api.StrictTimeout;
+import de.tum.cit.ase.ares.api.jupiter.Public;
 
 /**
  * @author Stephan Krusche (krusche@in.tum.de)
  * @version 5.0 (11.11.2020)
  */
-@WhitelistPath("target")
-@BlacklistPath(value = "**Test*.{java,class}", type = PathType.GLOB)
+@Policy(value = "test/SecurityPolicy.yaml", withinPath = "classes/de/tum/in/ase")
 @Public
 public class SortingExampleBehaviorTest {
 

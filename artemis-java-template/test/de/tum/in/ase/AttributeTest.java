@@ -5,12 +5,10 @@ import java.net.URISyntaxException;
 import org.junit.jupiter.api.DynamicContainer;
 import org.junit.jupiter.api.TestFactory;
 
-import de.tum.in.test.api.BlacklistPath;
-import de.tum.in.test.api.PathType;
-import de.tum.in.test.api.StrictTimeout;
-import de.tum.in.test.api.WhitelistPath;
-import de.tum.in.test.api.jupiter.Public;
-import de.tum.in.test.api.structural.AttributeTestProvider;
+import de.tum.cit.ase.ares.api.Policy;
+import de.tum.cit.ase.ares.api.StrictTimeout;
+import de.tum.cit.ase.ares.api.jupiter.Public;
+import de.tum.cit.ase.ares.api.structural.AttributeTestProvider;
 
 /**
  * @author Stephan Krusche (krusche@in.tum.de)
@@ -19,8 +17,7 @@ import de.tum.in.test.api.structural.AttributeTestProvider;
  * This test evaluates if the specified attributes in the structure oracle are correctly implemented with the expected type, visibility modifiers and annotations,
  * based on its definition in the structure oracle (test.json).
  */
-@WhitelistPath("target")
-@BlacklistPath(value = "**Test*.{java,class}", type = PathType.GLOB)
+@Policy(value = "test/SecurityPolicy.yaml", withinPath = "classes/de/tum/in/ase")
 @Public
 public class AttributeTest extends AttributeTestProvider {
 
