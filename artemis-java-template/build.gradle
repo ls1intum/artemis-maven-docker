@@ -10,8 +10,10 @@ plugins {
     id "maven-publish"
     id "com.teamscale" version "39.0.0"
     id "org.openjfx.javafxplugin" version "0.1.0"
-    id "org.springframework.boot" version "4.1.1"
-    id "io.spring.dependency-management" version "1.1.7"
+    // Not applied: they only get their JARs cached in the Docker image. Applying them would let the Spring Boot BOM replace the
+    // versions Ares 2 and the analysis tools resolve, so that Artemis exercises would have to download those again.
+    id "org.springframework.boot" version "4.1.1" apply false
+    id "io.spring.dependency-management" version "1.1.7" apply false
     id "org.checkerframework" version "1.0.2"
     id "io.freefair.aspectj.post-compile-weaving" version "9.8.0"
 }
@@ -32,7 +34,7 @@ repositories {
 }
 
 ext {
-    aresVersion = "2.1.5"
+    aresVersion = "2.2.0"
     aspectjVersion = "1.9.25.1"
 }
 
@@ -65,7 +67,6 @@ dependencies {
 //    pmd "org.apache.commons:commons-lang3:${commons_lang3_version}"
     checkstyle "org.apache.commons:commons-lang3:${commons_lang3_version}"
     checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle_version}"
-    spotbugs "org.apache.commons:commons-lang3:${commons_lang3_version}"
 }
 
 abstract class AresJvmArguments implements CommandLineArgumentProvider {
@@ -194,3 +195,13 @@ publishing {
 
 // Ares reserved-package build boundary, version 2
 apply from: "gradle/AresReservedPackages.gradle"
+
+// Downloads what the tests of an Artemis exercise need at runtime (Ares agent, JUnit engines, logback, JaCoCo agent, ...) without running
+// them, so that the Docker image caches it. The tests of this template are not executed in the image build.
+tasks.register("resolveAresDependencies") {
+    def resolvable = [configurations.testRuntimeClasspath, configurations.aresAgent,
+                      configurations.aresAspectjRuntime, configurations.aspect, configurations.jacocoAgent]
+    doLast {
+        resolvable.each { it.resolve() }
+    }
+}

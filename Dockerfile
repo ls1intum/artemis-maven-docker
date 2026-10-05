@@ -19,7 +19,11 @@ ADD artemis-java-template /opt/artemis-java-template
 
 RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test && mvn spotbugs:spotbugs checkstyle:checkstyle pmd:pmd
 
-RUN cd /opt/artemis-java-template && pwd && ls -la && ./gradlew clean test check -x test publishToMavenLocal && ./gradlew --version && ./gradlew --stop
+# Resolve Ares 2 on its own (including its transitive dependencies): Artemis exercises resolve exactly this tree, which
+# differs from the one above where the template pins other versions of the same artifacts (e.g. commons-lang3, objenesis)
+RUN cd /opt/artemis-java-template && mvn dependency:get -Dartifact=de.tum.cit.ase:ares:$(sed -n 's:.*<ares.version>\(.*\)</ares.version>.*:\1:p' pom.xml)
+
+RUN cd /opt/artemis-java-template && pwd && ls -la && ./gradlew clean test check -x test publishToMavenLocal resolveAresDependencies && ./gradlew --version && ./gradlew --stop
 
 RUN rm -rf /opt/artemis-java-template
 
