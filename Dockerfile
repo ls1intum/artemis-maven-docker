@@ -1,4 +1,4 @@
-FROM maven:3.10.0-eclipse-temurin-25
+FROM maven:3-eclipse-temurin-27
 
 LABEL maintainer="Stephan Krusche <krusche@tum.de>"
 
