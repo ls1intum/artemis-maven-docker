@@ -1,0 +1,4 @@
+#!/bin/sh
+# Runs the command line interface of detekt, see https://detekt.dev/docs/gettingstarted/cli
+# --sun-misc-unsafe-memory-access=allow silences the warning about sun.misc.Unsafe that the Kotlin compiler embedded in detekt causes on JDK 24 and later.
+exec java --sun-misc-unsafe-memory-access=allow -jar /opt/detekt/detekt-cli-all.jar "$@"
