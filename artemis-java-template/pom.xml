@@ -8,7 +8,7 @@
     <name>Artemis Java Template</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>27</javafx.version>
+        <javafx.version>28-ea+12</javafx.version>
         <mockito.version>5.24.0</mockito.version>
         <springboot.version>4.1.1</springboot.version>
         <bytebuddy.version>1.18.14</bytebuddy.version>
