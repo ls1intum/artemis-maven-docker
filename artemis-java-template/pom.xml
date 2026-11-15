@@ -15,7 +15,7 @@
         <scaConfigDirectory>${project.basedir}/staticCodeAnalysisConfig</scaConfigDirectory>
         <analyzeTests>false</analyzeTests>
         <ares.version>2.2.1</ares.version>
-        <aspectj.version>1.9.25.1</aspectj.version>
+        <aspectj.version>1.9.27</aspectj.version>
         <!-- Ares brings Guava with it. The Artemis templates keep it on a release that fixes GHSA-xxph-c9ww-hj94 (33.7.2 or newer) -->
         <guava.version>33.8.0-jre</guava.version>
         <!-- Keeps @{argLine} resolvable when JaCoCo is not part of the run. -->
