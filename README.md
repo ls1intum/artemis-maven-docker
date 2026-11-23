@@ -37,3 +37,12 @@ in `src/main/resources/templates/java` of Artemis pin other versions (Ares, Guav
 exercise downloads the difference. Artemis enforces this: `supporting_scripts/check_exercise_image_sync.py` compares the templates with these files at
 the tag configured in `application.yml` on every pull request, and a nightly run builds the Java exercise templates in the published image without
 network access (`supporting_scripts/verify_exercise_images_offline.py`). After a change here, create a new release (tag) and set it in `application.yml`.
+
+#### Vulnerable transitive dependencies
+
+Several Maven plugins and Ares bring old versions of libraries with them (e.g. `commons-beanutils`, `plexus-utils`, `snappy`, Guava). The plugins in
+`pom.xml` therefore override them in their `<dependencies>`, and `dependencyManagement` (Maven) and `constraints` (Gradle) do the same for the Ares tree.
+The Artemis templates carry the same overrides. `ares-resolve/pom.xml` resolves Ares the way an exercise does (only Guava and `commons-beanutils`
+managed), so that the vulnerable versions Ares brings are not cached either. To check an image, scan it, e.g.
+`docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --scanners vuln <image>`.
+Left as they are: the Guava of the Maven distribution in the base image and the one bundled inside the Checker Framework, which only run while the image is built.

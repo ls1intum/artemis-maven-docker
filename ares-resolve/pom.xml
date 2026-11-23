@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.tum.in.ase</groupId>
+    <artifactId>Artemis-Ares-Resolve</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>Artemis Ares Resolve</name>
+    <description>
+        Resolves Ares the way the Artemis Java exercises do: with the Ares dependency tree on its own, and only Guava and commons-beanutils managed.
+        It differs from the template project, where the pinned versions of the same artifacts (e.g. commons-lang3, objenesis)
+        replace the ones Ares brings. The Dockerfile passes the versions of the template project.
+    </description>
+    <properties>
+        <ares.version>unset</ares.version>
+        <guava.version>unset</guava.version>
+        <commons-beanutils.version>unset</commons-beanutils.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>de.tum.cit.ase</groupId>
+            <artifactId>ares</artifactId>
+            <version>${ares.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Same version and plugin dependencies as in the template project, so that the plugin does not bring the vulnerable commons-beanutils -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.11.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>commons-beanutils</groupId>
+                        <artifactId>commons-beanutils</artifactId>
+                        <version>${commons-beanutils.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
