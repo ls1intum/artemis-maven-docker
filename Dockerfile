@@ -19,12 +19,17 @@ ADD artemis-java-template /opt/artemis-java-template
 
 RUN cd /opt/artemis-java-template && pwd && ls -la && mvn clean install test && mvn spotbugs:spotbugs checkstyle:checkstyle pmd:pmd
 
-# Resolve Ares 2 on its own (including its transitive dependencies): Artemis exercises resolve exactly this tree, which
-# differs from the one above where the template pins other versions of the same artifacts (e.g. commons-lang3, objenesis)
-RUN cd /opt/artemis-java-template && mvn dependency:get -Dartifact=de.tum.cit.ase:ares:$(sed -n 's:.*<ares.version>\(.*\)</ares.version>.*:\1:p' pom.xml)
+# Resolve Ares 2 the way Artemis exercises do (its own dependency tree, only Guava and commons-beanutils managed): the template project above pins other
+# versions of the same artifacts (e.g. commons-lang3, objenesis). It must not keep the vulnerable Guava that Ares brings.
+ADD ares-resolve /opt/ares-resolve
+
+RUN cd /opt/ares-resolve && mvn dependency:resolve \
+    -Dares.version=$(sed -n 's:.*<ares.version>\(.*\)</ares.version>.*:\1:p' /opt/artemis-java-template/pom.xml) \
+    -Dguava.version=$(sed -n 's:.*<guava.version>\(.*\)</guava.version>.*:\1:p' /opt/artemis-java-template/pom.xml) \
+    -Dcommons-beanutils.version=$(sed -n 's:.*<commons-beanutils.version>\(.*\)</commons-beanutils.version>.*:\1:p' /opt/artemis-java-template/pom.xml)
 
 RUN cd /opt/artemis-java-template && pwd && ls -la && ./gradlew clean test check -x test publishToMavenLocal resolveAresDependencies && ./gradlew --version && ./gradlew --stop
 
-RUN rm -rf /opt/artemis-java-template
+RUN rm -rf /opt/artemis-java-template /opt/ares-resolve
 
 CMD ["mvn"]

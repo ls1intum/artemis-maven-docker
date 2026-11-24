@@ -6,16 +6,16 @@ import org.gradle.process.CommandLineArgumentProvider
 plugins {
     id "checkstyle"
     id "pmd"
-    id "com.github.spotbugs" version "6.5.12"
+    id "com.github.spotbugs" version "6.5.13"
     id "maven-publish"
-    id "com.teamscale" version "39.0.0"
+    id "com.teamscale" version "40.0.1"
     id "org.openjfx.javafxplugin" version "0.1.0"
     // Not applied: they only get their JARs cached in the Docker image. Applying them would let the Spring Boot BOM replace the
     // versions Ares 2 and the analysis tools resolve, so that Artemis exercises would have to download those again.
-    id "org.springframework.boot" version "4.1.1" apply false
+    id "org.springframework.boot" version "4.2.0" apply false
     id "io.spring.dependency-management" version "1.1.7" apply false
     id "org.checkerframework" version "1.0.2"
-    id "io.freefair.aspectj.post-compile-weaving" version "9.8.0"
+    id "io.freefair.aspectj.post-compile-weaving" version "9.8.3"
 }
 
 apply plugin: "java"
@@ -23,7 +23,7 @@ apply plugin: "org.checkerframework"
 
 // Only report nullness problems as warnings, they must not break the build
 checkerFramework {
-    version = "4.3.0"
+    version = "4.4.0"
     checkers = ["org.checkerframework.checker.nullness.NullnessChecker"]
     extraJavacArgs = ["-Awarns"]
 }
@@ -35,7 +35,7 @@ repositories {
 
 ext {
     aresVersion = "2.2.1"
-    aspectjVersion = "1.9.25.1"
+    aspectjVersion = "1.9.27"
 }
 
 configurations {
@@ -59,9 +59,17 @@ dependencies {
     // Puts Ares on the aspect path of ajc, otherwise nothing is woven
     aspect "de.tum.cit.ase:ares:${aresVersion}"
     implementation "org.aspectj:aspectjrt:${aspectjVersion}"
-    testImplementation "net.bytebuddy:byte-buddy:1.18.14"
+    testImplementation "net.bytebuddy:byte-buddy:1.18.17"
 
     implementation "org.apache.commons:commons-lang3:${commons_lang3_version}"
+    constraints {
+        // Ares brings Guava with it. The Artemis templates keep it on a release that fixes GHSA-xxph-c9ww-hj94 (33.7.2 or newer)
+        testImplementation "com.google.guava:guava:33.8.0-jre"
+        aspect "com.google.guava:guava:33.8.0-jre"
+        // Ares brings commons-beanutils 1.9.4 with it, which is affected by CVE-2025-48734
+        testImplementation "commons-beanutils:commons-beanutils:1.11.0"
+        aspect "commons-beanutils:commons-beanutils:1.11.0"
+    }
 
     // NOTE: for some reason, we cannot switch to the latest version here, then pmd would fail with a classloading error
 //    pmd "org.apache.commons:commons-lang3:${commons_lang3_version}"
@@ -168,7 +176,7 @@ pmd {
     ruleSets = ["$scaConfigDirectory/pmd-configuration.xml"]
     rulesMinimumPriority = 5
     ignoreFailures = true
-    toolVersion = "7.28.0"
+    toolVersion = "7.29.0"
 }
 
 tasks.named("pmdMain") {
