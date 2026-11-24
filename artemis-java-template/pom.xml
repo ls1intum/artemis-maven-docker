@@ -26,6 +26,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <!-- easymock brings ASM 9.10.1, which is affected by several CVEs (fixed in 9.11) -->
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-bom</artifactId>
+                <version>9.11.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
@@ -298,6 +306,11 @@
                 </executions>
                 <dependencies>
                     <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.11.1</version>
+                    </dependency>
+                    <dependency>
                         <groupId>org.eclipse.tycho</groupId>
                         <artifactId>tycho-compiler-jdt</artifactId>
                         <version>5.0.4</version>
@@ -333,6 +346,13 @@
                         --add-opens jdk.unsupported/sun.misc=ALL-UNNAMED
                     </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.11.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -513,6 +533,11 @@
                 <version>1.17.0</version>
                 <dependencies>
                     <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.11.1</version>
+                    </dependency>
+                    <dependency>
                         <groupId>commons-beanutils</groupId>
                         <artifactId>commons-beanutils</artifactId>
                         <version>1.11.0</version>
@@ -603,6 +628,11 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.11.0</version>
                 <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.11.1</version>
+                    </dependency>
                     <dependency>
                         <groupId>commons-beanutils</groupId>
                         <artifactId>commons-beanutils</artifactId>

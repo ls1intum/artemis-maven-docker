@@ -41,7 +41,7 @@
     <build>
         <plugins>
             <plugin>
-                <!-- Same version and plugin dependencies as in the template project, so that the plugin does not bring the vulnerable commons-beanutils -->
+                <!-- Same version and plugin dependencies as in the template project, so that the plugin does not bring the vulnerable commons-beanutils and ASM -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.11.0</version>
@@ -50,6 +50,11 @@
                         <groupId>commons-beanutils</groupId>
                         <artifactId>commons-beanutils</artifactId>
                         <version>${commons-beanutils.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.11.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
